@@ -76,6 +76,8 @@ char winner(const vector<char>& board) {
 }
 
 int main() {
+    // Changes by Sergei
+
     vector<char> board(9, EMPTY);
     displayBoard(board);
     
