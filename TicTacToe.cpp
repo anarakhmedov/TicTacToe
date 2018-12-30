@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <time.h>
 using namespace std;
 
 const char EMPTY = ' ';
@@ -75,8 +76,12 @@ char winner(const vector<char>& board) {
     return TIE;
 }
 
+bool moveAgain() {
+    return rand()%10 < 2;
+}
+
 int main() {
-    // Changes by Sergei
+    srand(time(NULL));
 
     vector<char> board(9, EMPTY);
     displayBoard(board);
@@ -88,11 +93,19 @@ int main() {
     while (winner(board) == NO_ONE) {
         if (moveOf1player) {
             humanMove(board, ps1);
-            moveOf1player = false;
+            if !moveAgain() {
+                moveOf1player = false;
+            } else {
+                cout << "Lucky move!" << endl;
+            }
         }
         else {
             humanMove(board, ps2);
-            moveOf1player = true;
+            if !moveAgain() {
+                moveOf1player = true;
+            } else {
+                cout << "Lucky move!" << endl;
+            }
         }
         displayBoard(board);
     }
