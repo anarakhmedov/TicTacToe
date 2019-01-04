@@ -93,7 +93,7 @@ int main() {
     while (winner(board) == NO_ONE) {
         if (moveOf1player) {
             humanMove(board, ps1);
-            if !moveAgain() {
+            if (!moveAgain()) {
                 moveOf1player = false;
             } else {
                 cout << "Lucky move!" << endl;
@@ -101,7 +101,7 @@ int main() {
         }
         else {
             humanMove(board, ps2);
-            if !moveAgain() {
+            if (!moveAgain()) {
                 moveOf1player = true;
             } else {
                 cout << "Lucky move!" << endl;
