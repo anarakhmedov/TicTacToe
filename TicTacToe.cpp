@@ -77,7 +77,7 @@ char winner(const vector<char>& board) {
 }
 
 bool moveAgain() {
-    return rand()%10 < 2;
+    return rand()%10 < 1;
 }
 
 int main() {
