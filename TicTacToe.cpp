@@ -89,25 +89,22 @@ int main() {
     PlayerSymbol ps1 = PlayerSymbol::X;
     PlayerSymbol ps2 = PlayerSymbol::O;
     
-    bool moveOf1player = true;
+    bool moveOfPlayer1 = true;
     while (winner(board) == NO_ONE) {
-        if (moveOf1player) {
-            humanMove(board, ps1);
-            displayBoard(board);
-            if (!moveAgain()) {
-                moveOf1player = false;
-            } else {
-                cout << "Lucky move!" << endl;
-            }
+        PlayerSymbol curSymbol;
+        if (moveOfPlayer1) {
+        	curSymbol = ps1;
+        } else {
+        	curSymbol = ps2;
         }
-        else {
-            humanMove(board, ps2);
-            displayBoard(board);
-            if (!moveAgain()) {
-                moveOf1player = true;
-            } else {
-                cout << "Lucky move!" << endl;
-            }
+
+        humanMove(board, curSymbol);
+        displayBoard(board);
+
+        if (!moveAgain()) {
+            moveOfPlayer1 = !moveOfPlayer1;
+        } else {
+            cout << "Lucky move!" << endl;
         }
     }
     int w = winner(board);
