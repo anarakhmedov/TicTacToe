@@ -93,6 +93,7 @@ int main() {
     while (winner(board) == NO_ONE) {
         if (moveOf1player) {
             humanMove(board, ps1);
+            displayBoard(board);
             if (!moveAgain()) {
                 moveOf1player = false;
             } else {
@@ -101,13 +102,13 @@ int main() {
         }
         else {
             humanMove(board, ps2);
+            displayBoard(board);
             if (!moveAgain()) {
                 moveOf1player = true;
             } else {
                 cout << "Lucky move!" << endl;
             }
         }
-        displayBoard(board);
     }
     int w = winner(board);
     if (w == TIE) {
