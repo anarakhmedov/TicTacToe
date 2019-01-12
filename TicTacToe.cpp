@@ -32,6 +32,24 @@ bool isLegal(int move, const vector<char>& board) {
     return (board[move - 1] == EMPTY);
 }
 
+int remainingCell(const vector<char>& board) {
+    int emptyCount = 0;
+    int emptyCellNum = -1;
+
+    for (int i = 0; i < board.size(); ++i) {
+        if (board[i] == EMPTY) {
+            ++emptyCount;
+            emptyCellNum = i + 1;
+        }
+    }
+
+    if (emptyCount == 1) {
+        return emptyCellNum;
+    }
+
+    return -1;
+}
+
 char psToChar(PlayerSymbol ps) {
     switch (ps) {
         case PlayerSymbol::X:
@@ -43,11 +61,16 @@ char psToChar(PlayerSymbol ps) {
 
 void humanMove(vector<char>& board, PlayerSymbol ps) {
     cout << psToChar(ps) << " goes" << endl;
-    int move = askNumber("Where will you move?", 1, int(board.size()));
-    while (!isLegal(move, board)) {
-        cout << "That square is already occupied!" << endl;
+
+    int move = remainingCell(board);
+    if (move == -1) { // autofill didn't work
         move = askNumber("Where will you move?", 1, int(board.size()));
+        while (!isLegal(move, board)) {
+            cout << "That square is already occupied!" << endl;
+            move = askNumber("Where will you move?", 1, int(board.size()));
+        }
     }
+
     board[move - 1] = psToChar(ps);
     cout << "Fine." << endl;
 }
