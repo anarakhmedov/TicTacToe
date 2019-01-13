@@ -69,10 +69,13 @@ void humanMove(vector<char>& board, PlayerSymbol ps) {
             cout << "That square is already occupied!" << endl;
             move = askNumber("Where will you move?", 1, int(board.size()));
         }
-    }
 
+        cout << "Fine." << endl;
+
+    } else {
+        cout << "Automatic move." << endl;
+    }
     board[move - 1] = psToChar(ps);
-    cout << "Fine." << endl;
 }
 
 char winner(const vector<char>& board) {
