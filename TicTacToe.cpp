@@ -7,6 +7,8 @@ const char EMPTY = ' ';
 const char NO_ONE = ' ';
 const char TIE = '_';
 
+const int LUCKY_MOVE_PROB_PCNT = 5;
+
 enum class PlayerSymbol {X, O};
 
 void displayBoard(const vector<char>& v) {
@@ -103,7 +105,7 @@ char winner(const vector<char>& board) {
 }
 
 bool moveAgain() {
-    return rand()%10 < 1;
+    return rand()%100 < LUCKY_MOVE_PROB_PCNT;
 }
 
 int main() {
