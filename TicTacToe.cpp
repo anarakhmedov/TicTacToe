@@ -70,6 +70,11 @@ void humanMove(vector<char>& board, PlayerSymbol ps) {
             move = askNumber("Where will you move?", 1, int(board.size()));
         }
     }
+    else {
+        cout << "Automatic move." << endl;
+    }
+
+    //to avoid "Fine." while automatic move.
 
     board[move - 1] = psToChar(ps);
     cout << "Fine." << endl;
