@@ -73,7 +73,7 @@ void humanMove(vector<char>& board, PlayerSymbol ps) {
         cout << "Fine." << endl;
 
     } else {
-        cout << "Automatic move to " << remainingCell(board) << " cell" <<  endl;
+        cout << "Automatic move to " << move << " cell" <<  endl;
     }
     board[move - 1] = psToChar(ps);
 }
