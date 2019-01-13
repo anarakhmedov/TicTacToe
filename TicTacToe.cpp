@@ -1,7 +1,10 @@
 #include <iostream>
 #include <vector>
 #include <time.h>
+#include <cmath>
 using namespace std;
+
+const int SIZE = 4;
 
 const char EMPTY = ' ';
 const char NO_ONE = ' ';
@@ -12,11 +15,39 @@ const int LUCKY_MOVE_PROB_PCNT = 5;
 enum class PlayerSymbol {X, O};
 
 void displayBoard(const vector<char>& v) {
-    cout << "\n\t" << v[0] << " | " << v[1] << " | " << v[2] << endl;
-    cout << "\n\t" << "---------" << endl;
-    cout << "\n\t" << v[3] << " | " << v[4] << " | " << v[5] << endl;
-    cout << "\n\t" << "---------" << endl;
-    cout << "\n\t" << v[6] << " | " << v[7] << " | " << v[8] << endl;
+    int size = sqrt(v.size());
+
+    for (int i = 0; i < size; ++i) {
+        // current row
+        cout << endl << "\t";
+        for (int j = 0; j < size; ++j) {
+            cout << v[i * size + j] << " | ";
+        }
+        cout << endl;
+    }
+
+    // we do not want to add '|' after last element in a row, so change a bit:
+//    for (int i = 0; i < size; ++i) {
+//        // current row
+//        cout << endl << "\t";
+//        for (int j = 0; j < size - 1; ++j) {
+//            cout << v[i * size + j] << " | ";
+//        }
+//        cout << v[i * size + size - 1];
+//        cout << endl;
+//    }
+
+
+
+
+
+//
+//
+//    cout << "\n\t" << v[0] << " | " << v[1] << " | " << v[2] << endl;
+//    cout << "\n\t" << "---------" << endl;
+//    cout << "\n\t" << v[3] << " | " << v[4] << " | " << v[5] << endl;
+//    cout << "\n\t" << "---------" << endl;
+//    cout << "\n\t" << v[6] << " | " << v[7] << " | " << v[8] << endl;
 }
 
 int askNumber(string quiestion, int min, int max) {
@@ -80,6 +111,7 @@ void humanMove(vector<char>& board, PlayerSymbol ps) {
     board[move - 1] = psToChar(ps);
 }
 
+// Will not work yet because too hard to implement now for variable size board
 char winner(const vector<char>& board) {
     const int wr[8][3] = {
         {0, 1, 2},
@@ -111,6 +143,7 @@ bool moveAgain() {
 int main() {
     srand(time(NULL));
 
+    // SIZE*SIZE instead of 9
     vector<char> board(9, EMPTY);
     displayBoard(board);
     
