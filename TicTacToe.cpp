@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <time.h>
+#include <cmath>
+
 using namespace std;
 
 const char EMPTY = ' ';
@@ -10,11 +12,25 @@ const char TIE = '_';
 enum class PlayerSymbol {X, O};
 
 void displayBoard(const vector<char>& v) {
-    cout << "\n\t" << v[0] << " | " << v[1] << " | " << v[2] << endl;
-    cout << "\n\t" << "---------" << endl;
-    cout << "\n\t" << v[3] << " | " << v[4] << " | " << v[5] << endl;
-    cout << "\n\t" << "---------" << endl;
-    cout << "\n\t" << v[6] << " | " << v[7] << " | " << v[8] << endl;
+    int size = sqrt(v.size());
+    for (int i = 0; i < size; ++i) {
+        cout << endl << "\t";
+        for (int j = 0; j < size; ++j) {
+            cout << v[i * size + j];
+            if (j < size - 1) {
+                cout << " | ";
+            }
+        }
+        cout << endl;
+        if (i < size - 1) {
+            cout << "\n\t";
+            // TODO: different multiplier for different size
+            for (int k = 0; k < size * 3; k++) {
+               cout << "-";
+            }
+            cout << endl;
+        }
+    }
 }
 
 int askNumber(string quiestion, int min, int max) {
