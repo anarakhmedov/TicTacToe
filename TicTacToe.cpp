@@ -1,13 +1,17 @@
 #include <iostream>
 #include <vector>
 #include <time.h>
+#include <cmath>
 using namespace std;
 
 const char EMPTY = ' ';
+
 const char NO_ONE = ' ';
 const char TIE = '_';
 
 const int LUCKY_MOVE_PROB_PCNT = 5;
+
+const int WIN_COUNT = 3;
 
 enum class PlayerSymbol {X, O};
 
@@ -81,27 +85,54 @@ void humanMove(vector<char>& board, PlayerSymbol ps) {
 }
 
 char winner(const vector<char>& board) {
-    const int wr[8][3] = {
-        {0, 1, 2},
-        {3, 4, 5},
-        {6, 7, 8},
-        {0, 3, 6},
-        {1, 4, 7},
-        {2, 5, 8},
-        {0, 4, 8},
-        {2, 4, 6} };
-   
-    for (int i = 0; i < 8; ++i) {
-        if (board[wr[i][0]] == board[wr[i][1]] && board[wr[i][1]] == board[wr[i][2]]) {
-            return board[wr[i][0]];
+    int size = sqrt(board.size());
+
+    for (int i = 0; i < size; ++i) {
+        for (int j = 0; j < size; ++j) {
+            if (board[i*size + j] != EMPTY) {
+                // check
+                char cur = board[i*size + j];
+
+                // to the right
+                int k = 1;
+                while (k < WIN_COUNT) {
+                    int nxtIndx = i*size + j + k;
+                    if (nxtIndx >= board.size()) break;
+                    if (board[nxtIndx] != cur) break;
+                    ++k;
+                }
+                if (k == WIN_COUNT) {
+                    return cur;
+                }
+
+                // to the bottom
+                k = 1;
+                while (k < WIN_COUNT) {
+                    int nxtIndx = (i + k)*size + j;
+                    if (nxtIndx >= board.size()) break;
+                    if (board[(i + k)*size + j] != cur) break;
+                    ++k;
+                }
+                if (k == WIN_COUNT) {
+                    return cur;
+                }
+
+                // to the bottom-right
+                k = 1;
+                while (k < WIN_COUNT) {
+                    int nxtIndx = (i + k)*size + j + k;
+                    if (nxtIndx >= board.size()) break;
+                    if (board[(i + k)*size + j + k] != cur) break;
+                    ++k;
+                }
+                if (k == WIN_COUNT) {
+                    return cur;
+                }
+            }
         }
     }
-    for (char c: board) {
-        if (c == EMPTY) {
-            return NO_ONE;
-        }
-    }
-    return TIE;
+
+    return NO_ONE;
 }
 
 bool moveAgain() {
