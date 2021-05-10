@@ -35,12 +35,16 @@ void displayBoard(const vector<char>& v) {
     }
 }
 
-int askNumber(string quiestion, int min, int max) {
+int askNumber(string question, int min, int max) {
     int number;
     do
     {
-        cout << quiestion << " (" << min << "-" << max << "): ";
+        cout << question << " (" << min << "-" << max << "): ";
         cin >> number;
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+        }
     } while (number < min || number > max);
     return number;
     
